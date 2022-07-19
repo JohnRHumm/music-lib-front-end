@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplaySongs from './Components/DisplaySongs/DisplaySongs';
+import GetAllSongs from './Components/GetAllSongs/GetAllSongs';
 
 
 
@@ -9,19 +10,14 @@ function App() {
     const [songs,updateSongs] = useState([]);
 
     useEffect(()=>{
-       getAllSongs();
+       GetAllSongs({updateSongs});
        
     },[]);
 
-    async function getAllSongs(){
-      const response = await axios.get('http://127.0.0.1:8000/music/');
-      updateSongs(response.data);
-      console.log(response.data);
-
-    }
+    
   return (
     <div >
-      <DisplaySongs songs = {songs}/>
+      <DisplaySongs songs = {songs} updateSongs = {updateSongs}/>
     </div>
   );
 }
