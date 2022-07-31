@@ -1,16 +1,5 @@
 import React from "react";
-import axios from 'axios';
-
-
-
-const DeleteSong = async (e) =>{
-    e.preventDefault();
-    let id = e.target.getAttribute('song_id');
-    let path = 'http://127.0.0.1:8000/music/' + id +'/';
-    const response = await axios.delete(path);
-    console.log(response);
-    return
-};
+import DeleteSongButton from "../DeleteSongButton/DeleteSongButton";
 
 const DisplaySongs  = ({songs,updateSongs}) => {
     return (  
@@ -26,7 +15,6 @@ const DisplaySongs  = ({songs,updateSongs}) => {
             </thead>
 
             <tbody>
-            
                 {songs.map((song) => {
                     return (
                         <tr key={song.id}>
@@ -35,8 +23,8 @@ const DisplaySongs  = ({songs,updateSongs}) => {
                             <td>{song.album}</td>
                             <td>{song.release_date}</td>
                             <td>{song.genre}</td>
-                            <td><button type='button' song_id={song.id} onClick = {DeleteSong} >Delete Song</button></td>
-                            <td><button type='button' >Modify Song</button></td>
+                            <td><DeleteSongButton song={song} updateSongs = {updateSongs}/></td>
+                            <td><button type='button'>Modify Song</button></td>
                          </tr>
                         
                     );
@@ -47,9 +35,9 @@ const DisplaySongs  = ({songs,updateSongs}) => {
                 
         </table>
 
-
-        
+    
     );
+
 }
  
 export default DisplaySongs;
